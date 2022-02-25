@@ -13,33 +13,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.pink,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Stay Halal Brother'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -49,26 +31,62 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
+  String _oddeven = "";
+  String _text = "";
+  String _text1 = "";
+  String _text2 = "";
+  int i = 0;
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
+      if (_counter > 10) {
+        _counter = 1;
+      }
+
+      //status genap atau ganjil
+      _oddeven = "Status :";
+      if (_counter % 2 != 0)
+        _oddeven += "Ganjil";
+      else
+        _oddeven += "Genap";
+
+      /* kelipatan ganjil*/
+      _text = "Daftar bilangan ganjil :";
+      for (i = 0; i <= _counter; i++) {
+        if (i % 2 != 0) {
+          _text += ' ${i}, ';
+        }
+      }
+
+      /*Kelipatan 3 genap*/
+      _text1 = "Kelipatan 3 genap :";
+      for (i = 0; i <= _counter; i++) {
+        if (i % 3 == 0) {
+          if (i % 2 == 0) {
+            _text1 += ' ${i}, ';
+          }
+        }
+      }
+
+      /*Bilangan prima*/
+      _text2 = "Bilangan Prima :";
+      int r = 0;
+      for (i = 1; i <= _counter; i++) {
+        for (int y = 1; y <= i; y++) {
+          if (i % y == 0) {
+            r++;
+          }
+        }
+        if (r == 2) {
+          _text2 += ' ${i}, ';
+        }
+        r = 0;
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -79,35 +97,37 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'You have pushed the button this many times:',
+              'Kamu telah klik tombol tambah sebanyak :',
+            ),
+            Text(
+              '$_oddeven',
+              style: Theme.of(context).textTheme.headline4,
             ),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
+            ),
+            Text(
+              '$_text',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            Text(
+              '$_text1',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            Text(
+              '$_text2',
+              style: Theme.of(context).textTheme.headline6,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        tooltip: 'Tambah angka',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
